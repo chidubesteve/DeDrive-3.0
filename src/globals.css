@@ -18,6 +18,8 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
+  background-color: var(--main-bg-color);
+  color: var(--icons-color);
 }
 
 a {
@@ -49,10 +51,11 @@ a {
   background: var(--icons-color);
   width: 0.5rem;
 }
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--main-bg-color);
-    color: var(--icons-color);
-  }
+.light-mode {
+  background-color: var(--icons-color);
+  color: var(--main-bg-color);
+}
+.dark-mode {
+  background-color: var(--main-bg-color);
+  color: var(--icons-color);
 }
