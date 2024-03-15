@@ -10,6 +10,15 @@
   );
   --main-bg-color: #18191d;
   --secondary-bg-color: #222328;
+  --icons-bg-color: #e2e6e9;
+  --shadow-dark-color: #d3dae7;
+  --shadow-light-color: #fff;
+
+  --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
+    -1rem -1rem 1rem var(--shadow-light-color);
+
+  --box-shadow-2: 0rem 0rem 0rem var(--shadow-dark-color),
+    -0.3rem -0.3rem 1rem var(--shadow-dark-color);
 }
 
 html,
@@ -18,8 +27,6 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
-  background-color: var(--main-bg-color);
-  color: var(--icons-color);
 }
 
 a {
@@ -30,6 +37,8 @@ a {
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: none;
+  padding: 0;
+  margin: 0;
 }
 
 ::selection {
@@ -52,10 +61,18 @@ a {
   width: 0.5rem;
 }
 .light-mode {
-  background-color: var(--icons-color);
+  background-color: var(--shadow-light-color);
   color: var(--main-bg-color);
+  --image-grayscale: 0;
+  --image-opacity: 100%;
 }
 .dark-mode {
   background-color: var(--main-bg-color);
-  color: var(--icons-color);
+  color: var(--icons-bg-color);
+  --image-grayscale: 50%;
+  --image-opacity: 90%;
+}
+img,
+video {
+  filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }

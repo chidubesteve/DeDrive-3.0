@@ -1,0 +1,18 @@
+.button {
+  background: var(--gradient-color);
+  width: auto;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--gradient-color);
+  cursor: pointer;
+  transition: all 0.4s ease-in;
+  font-size: 1rem;
+  border-radius: 2rem;
+  color: var(--icons-bg-color);
+  word-spacing: 2px;
+}
+
+.button:hover {
+  background: var(--main-bg-color);
+  border: 1px solid var(--icons-bg-color);
+  text-wrap: nowrap;
+}

@@ -1,0 +1,42 @@
+.navBar {
+  width: 100%;
+  position: relative;
+  padding-block: .6rem;
+  z-index: 111111;
+}
+
+.navBarBox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: inherit;
+  justify-content: space-between;
+  margin: 0 auto;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 1.2rem;
+}
+.navBarBoxLeft {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.AppNameText {
+  font-size: 2rem;
+  font-weight: 700;
+  text-wrap: nowrap;
+  white-space: nowrap;
+}
+.rightSideNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.navBox ul {
+  list-style-type: none;
+  display: flex;
+  background-color: brown;
+  justify-content: space-between;
+}

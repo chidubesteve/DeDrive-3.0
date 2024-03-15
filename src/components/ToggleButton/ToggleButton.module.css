@@ -1,0 +1,5 @@
+.light_mode_icon,
+.dark_mode_icon {
+  font-size: 23px;
+  cursor: pointer;
+}
