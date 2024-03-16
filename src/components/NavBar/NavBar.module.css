@@ -1,7 +1,7 @@
 .navBar {
   width: 100%;
   position: relative;
-  padding-block: 0.6rem;
+  padding-block: 0.9rem;
   z-index: 111111;
 }
 
@@ -28,14 +28,17 @@
 }
 .rightSideNav {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 0.2fr 0.8fr 0.5fr 0.8fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+.rightSideNav > * {
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
 }
 
 .navBox ul {
   list-style-type: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }

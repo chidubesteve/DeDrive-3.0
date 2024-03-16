@@ -4,7 +4,7 @@ import { MdLightMode } from "react-icons/md";
 
 // internal import
 import styles from "./ToggleButton.module.css";
-import {themeContext} from "../../Theme";
+import {themeContext} from "../../../Theme";
 
 const ToggleButton = () => {
   const { theme, toggleTheme } = useContext(themeContext);
