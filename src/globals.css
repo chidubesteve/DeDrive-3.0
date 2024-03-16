@@ -66,6 +66,10 @@ a {
   --image-grayscale: 0;
   --image-opacity: 100%;
 }
+.light-mode .button:hover {
+    color: var(--main-bg-color);
+    background-color: var(--icons-bg-color);
+  }
 .dark-mode {
   background-color: var(--main-bg-color);
   color: var(--icons-bg-color);
