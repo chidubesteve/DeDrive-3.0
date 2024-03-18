@@ -10,7 +10,7 @@ const NavBar = () => {
     <div className={styles.navBar}>
       <div className={styles.navBarBox}>
         <div className={styles.navBarBoxLeft}>
-          <h2 className={styles.AppNameText}>DeDrive 3.0</h2>
+          <h1 className={styles.AppNameText}>DeDrive 3.0</h1>
         </div>
         <div className={styles.rightSideNav}>
           <ToggleButton />

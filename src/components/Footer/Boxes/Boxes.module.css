@@ -1,0 +1,46 @@
+.box {
+  height: 120px;
+  width: 100px;
+  border-radius: 10%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--gradient-color);
+  border-radius: inherit;
+  z-index: -1;
+  margin: -2px;
+}
+.icon {
+  font-size: 3rem;
+  color: var(--shadow-light-color);
+}
+.number_box {
+  background: var(--secondary-bg-color);
+  border-radius: 12%;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+}
+.number_box > p {
+  color: var(--shadow-light-color);
+  display: flex;
+  font-size: 11px;
+  align-items: center;
+  justify-content: center;
+}
+.lightMode {
+    background: var(--shadow-light-color);
+    color: var(--main-bg-color);
+}

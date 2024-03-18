@@ -1,0 +1,40 @@
+.box {
+  width: 100%;
+  position: relative;
+  padding-block: 0.9rem;
+  padding-inline: 1.2rem;
+}
+div h1 {
+  font-size: 20px;
+}
+.boxes_container {
+  width: inherit;
+  display: grid;
+  margin: 1.5rem auto;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 3rem;
+}
+/* boxes */
+.box_item {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.box_item_info {
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+  margin-top: 1.3rem;
+}
+.box_item_info h1 {
+  font-size: 14px;
+}
+.box_item_info p {
+  font-size: small;
+  color: var(--icons-color);
+}
