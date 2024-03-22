@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import "../node_modules/react-tooltip/dist/react-tooltip.css";
 import { ThemeProvider } from './Theme';
 import reportWebVitals from './reportWebVitals';
 

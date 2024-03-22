@@ -13,12 +13,6 @@
   --icons-bg-color: #e2e6e9;
   --shadow-dark-color: #d3dae7;
   --shadow-light-color: #fff;
-
-  --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
-    -1rem -1rem 1rem var(--shadow-light-color);
-
-  --box-shadow-2: 0rem 0rem 0rem var(--shadow-dark-color),
-    -0.3rem -0.3rem 1rem var(--shadow-dark-color);
 }
 
 html,
@@ -67,9 +61,9 @@ a {
   --image-opacity: 100%;
 }
 .light-mode .button:hover {
-    color: var(--main-bg-color);
-    background-color: var(--icons-bg-color);
-  }
+  color: var(--main-bg-color);
+  background-color: var(--icons-bg-color);
+}
 .dark-mode {
   background-color: var(--main-bg-color);
   color: var(--icons-bg-color);

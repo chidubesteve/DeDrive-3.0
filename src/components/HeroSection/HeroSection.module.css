@@ -1,0 +1,117 @@
+.heroSection {
+  width: inherit;
+  margin: 3rem auto;
+  padding-inline: 1.2rem;
+}
+.heroSection_box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  height: auto;
+}
+
+.heroSection_box_left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.heroSection_box_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    0deg,
+    rgba(24, 25, 29, 1) 0%,
+    rgba(34, 35, 40, 1) 45%,
+    rgba(24, 25, 29, 1) 85%
+  );
+}
+.lightMode {
+  background: linear-gradient(
+    0deg,
+    white 0%,
+    var(--icons-bg-color) 45%,
+    white 85%
+  );
+}
+.heroSection_box_left h1 {
+  font-size: 4rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.btn {
+  display: flex;
+  align-self: flex-start;
+  justify-content: flex-start;
+}
+
+.heroSection_box_left p {
+  margin-bottom: 2rem;
+}
+.heroSection_box_left p a {
+  text-decoration: underline dashed #1c8cb1;
+}
+.underlined_1 {
+  position: relative;
+  margin-right: 1rem;
+}
+.underlined_1:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  height: 7px;
+  width: 100%;
+  border: solid 2px #1c8cb1;
+  border-color: #1c8cb1 transparent transparent transparent;
+  border-radius: 50%;
+  transform: rotate(-9deg);
+  clip-path: inset(0 0 50% 0);
+}
+
+.underlined_2 {
+  position: relative;
+  margin-right: 1rem;
+}
+.underlined_2:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: -10rem;
+  height: 7px;
+  width: calc(100% + 150px); /* Adjusted width to account for rotation */
+  border: solid 2px #c30d47;
+  border-color: #c30d47 transparent transparent transparent;
+  border-radius: 50%;
+  transform: rotate(-5deg);
+  clip-path: inset(0 0 50% 0);
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .heroSection {
+    width: 90%;
+    margin: 1rem auto;
+  }
+  .heroSection_box {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .heroSection_box_left {
+    padding-right: 2rem;
+  }
+  .heroSection_box_left h1 {
+    line-height: 1;
+    font-size: 3.5rem;
+  }
+}
+@media screen and (min-width: 726px) {
+  .heroSection_box_left h1 {
+    font-size: 3rem;
+  }
+  .heroSection_box_left {
+    padding: 0;
+  }
+}
