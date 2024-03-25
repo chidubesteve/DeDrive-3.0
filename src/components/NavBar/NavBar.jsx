@@ -24,10 +24,20 @@ const NavBar = () => {
           <nav className={styles.navBox}>
             <ul>
               <li className={styles.navBoxItem}>
-                <a href="#">Help</a>
+                <a
+                  href="https://github.com/chidubesteve/DeDrive-3.0/blob/main/README.md"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Help
+                </a>
               </li>
               <li className={styles.navBoxItem}>
-                <a href="https://direct.me/phoenixtech" target="_blank">
+                <a
+                  href="https://direct.me/phoenixtech"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   About me
                 </a>
               </li>
@@ -43,20 +53,18 @@ const NavBar = () => {
             handleClick={() => {}}
             className={styles.btn}
           />
-        {/* MENU BUTTON */}
-        <div className={styles.navbar_container_right_menuBtn}>
-          <CgMenuRight
-            className={styles.menuIcon}
-            onClick={() => openSideBar()}
-            size={25}
-          />
-        </div>
+          {/* MENU BUTTON */}
+          <div className={styles.navbar_container_right_menuBtn}>
+            <CgMenuRight
+              className={styles.menuIcon}
+              onClick={() => openSideBar()}
+              size={25}
+            />
+          </div>
         </div>
       </div>
       {/* SIDEBAR COMPONENT */}
-      {openSideMenu && (
-          <SideBar setOpenSideMenu={setOpenSideMenu} />
-      )}
+      {openSideMenu && <SideBar setOpenSideMenu={setOpenSideMenu} />}
     </div>
   );
 };

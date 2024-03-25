@@ -88,7 +88,7 @@
   clip-path: inset(0 0 50% 0);
 }
 
-@media screen and (min-width: 320px) and (max-width: 425px) {
+@media screen and (min-width: 320px) and (max-width: 767px) {
   .heroSection {
     width: 90%;
     margin: 1rem auto;
@@ -97,6 +97,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 4rem;
+    margin-top: 2rem;
     justify-content: center;
   }
 

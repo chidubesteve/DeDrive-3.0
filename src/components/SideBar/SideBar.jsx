@@ -22,21 +22,33 @@ const SideBar = ({ setOpenSideMenu }) => {
         onClick={() => closeSideBar()}
       />
       <div className={`${style.sideBar_box}`}>
-      <h2>DeDrive 3.0</h2>
-      <br />
+        <h2>DeDrive 3.0</h2>
+        <br />
         <p>
-          The decentralized drive system. Upload, view, share, approve and revoke access to your files,
-          the decentralized way!
+          The decentralized drive system. Upload, view, share, approve and
+          revoke access to your files, the decentralized way!
         </p>
       </div>
       <div className={style.sideBar_menu}>
         <nav className={style.sideBar_menu_nav}>
           <ul className={style.sideBar_menu_ul}>
             <li>
-              <a href="#">Help</a>
+              <a
+                href="https://github.com/chidubesteve/DeDrive-3.0/blob/main/README.md"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Help
+              </a>
             </li>
             <li>
-              <a href="https://direct.me/phoenixtech">About me</a>
+              <a
+                href="https://direct.me/phoenixtech"
+                target="_blank"
+                rel="noreferrer"
+              >
+                About me
+              </a>
             </li>
           </ul>
         </nav>
