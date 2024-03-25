@@ -42,3 +42,35 @@
   display: flex;
   justify-content: space-evenly;
 }
+.navbar_container_right_menuBtn {
+  display: none;
+}
+
+.menuIcon {
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+
+  .navBarBoxLeft {
+    grid-template-columns: 1fr;
+    padding-left: 1.2rem;
+  }
+  .rightSideNav {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .navBox {
+    display: none;
+  }
+  .btn {
+    display: none;
+  }
+  .navbar_container_right_menuBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

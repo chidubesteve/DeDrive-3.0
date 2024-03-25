@@ -4,7 +4,7 @@
   padding-block: 0.9rem;
   padding-inline: 1.2rem;
 }
-div h1 {
+.box h1 {
   font-size: 20px;
 }
 .boxes_container {
@@ -28,13 +28,31 @@ div h1 {
   display: grid;
   grid-template-rows: 1fr 3fr;
   grid-template-columns: 1fr;
-  row-gap: 1rem;
-  margin-top: 1.3rem;
+  row-gap: 0.7rem;
+  max-height: 122px;
 }
 .box_item_info h1 {
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 .box_item_info p {
   font-size: small;
   color: var(--icons-color);
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .box {
+    width: 90%;
+    padding-inline: 1.2rem;
+  }
+  .box > h1 {
+    padding-inline: 1.2rem;
+  }
+  .boxes_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
 }

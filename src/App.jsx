@@ -8,11 +8,11 @@ import {HeroSection} from './components/ComponentIndex'
 
 const App = () => {
   return (
-    <div>
+    <>
       <NavBar />
       <HeroSection />
       <Footer />
-    </div>
+    </>
   );
 };
 

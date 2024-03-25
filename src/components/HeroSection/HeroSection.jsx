@@ -17,7 +17,7 @@ const HeroSection = () => {
               Upload and <span className={style.underlined_1}>share</span>
               <span className={`${style.underlined_2}`}></span>
             </h1>
-            <h1>your files.</h1>
+            <h1 className={style.h1Cont}>your files.</h1>
             <p>
               Your files are stored on the blockchain without the help of any
               third party.

@@ -13,6 +13,9 @@
   --icons-bg-color: #e2e6e9;
   --shadow-dark-color: #d3dae7;
   --shadow-light-color: #fff;
+
+    --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
+    -1rem -1rem 1rem var(--shadow-light-color);
 }
 
 html,
@@ -51,19 +54,17 @@ a {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 2rem;
-  background: var(--icons-color);
-  width: 0.5rem;
+  background: var(--icons-bg-color);
+  width: 0.4rem;
 }
+
 .light-mode {
   background-color: var(--shadow-light-color);
   color: var(--main-bg-color);
   --image-grayscale: 0;
   --image-opacity: 100%;
 }
-.light-mode .button:hover {
-  color: var(--main-bg-color);
-  background-color: var(--icons-bg-color);
-}
+
 .dark-mode {
   background-color: var(--main-bg-color);
   color: var(--icons-bg-color);

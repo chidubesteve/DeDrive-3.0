@@ -1,0 +1,92 @@
+.sideBar {
+  position: fixed;
+  top: 0;
+  width: 24rem;
+  background: var(--main-bg-color);
+  border-right: 2px solid var(icons-bg-color);
+  overflow-y: auto;
+  height: 100vh;
+  display: none;
+  z-index: 1111;
+}
+.lightMode {
+    background: var(--shadow-light-color);
+    color: var(--main-bg-color);
+
+}
+
+.lightMode .sideBar_menu_ul li:hover {
+  background-color: var(--icons-color);
+    color: var(--main-bg-color);
+    cursor: pointer;
+}
+.sideBar::-webkit-scrollbar {
+  display: none;
+}
+
+.sideBar_box {
+  padding: 1.2rem;
+  border-bottom: 1px solid var(--icons-color);
+  z-index: 33333333;
+}
+
+.sideBar_closeBtn {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.sideBar_closeBtn:hover {
+  transform: rotate(45deg);
+}
+.sideBar_box {
+  margin-top: 2rem;
+}
+
+
+.sideBar_menu_ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.sideBar_menu_ul li{
+  transition: all 0.2s ease-in;
+}
+
+.sideBar_menu_ul li:hover {
+  background-color: var(--icons-color);
+    color: var(--main-bg-color);
+    cursor: pointer;
+}
+
+
+.sideBar_menu {
+  padding: 2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-bottom: 1px solid var(--icons-color);
+}
+
+.sideBar_menu_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sideBar_button {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .sideBar {
+    display: block;
+    width: 20rem;
+  }
+}

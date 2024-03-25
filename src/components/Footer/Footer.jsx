@@ -1,4 +1,6 @@
 import React from "react";
+
+// internal imports
 import style from "./Footer.module.css";
 import Boxes from "./Boxes/Boxes";
 
@@ -18,7 +20,7 @@ const Footer = () => {
           <Boxes iconName="TfiReload" number="2" />
           <div className={style.box_item_info}>
             <h1>Process</h1>
-            <p>Wait till your files are uploaded to the blockchain. Verify transaction on wallet</p>
+            <p>Wait till your files are uploaded to the blockchain.</p>
           </div>
         </div>
         <div className={style.box_item}>
@@ -26,7 +28,7 @@ const Footer = () => {
           <div className={style.box_item_info}>
             <h1>Share</h1>
             <p>
-              Simply share the ipfs link with any wallet address of your choice.
+              Share the ipfs link with any wallet address of your choice.
             </p>
           </div>
         </div>
