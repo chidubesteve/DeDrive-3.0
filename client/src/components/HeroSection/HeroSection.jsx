@@ -26,6 +26,7 @@ const HeroSection = () => {
                 href="https://en.wikipedia.org/wiki/InterPlanetary_File_System"
                 target="_blank"
                 rel="noreferrer"
+                title="What is IPFS?"
               >
                 IPFS
               </a>
