@@ -4,25 +4,28 @@ pragma solidity ^0.8.24;
 import "hardhat/console.sol";
 
 contract Upload {
+    //event
+    event DisplayUrls(address indexed owner, string[] _urls);
+    
+      //struct
     struct Access {
         address user;
         bool access;
     }
-
-    mapping(address => string[]) value;
-    mapping(address => mapping(address => bool)) ownership;
+    //mappings
+    mapping(address => string[])  value;
+    mapping(address => mapping(address => bool))  ownership;
     mapping(address => Access) public accessList;
-    mapping(address => bool) accessed;
-    address[] keys;
+    mapping(address => bool)  accessed;
+    address[]  keys;
     mapping(address => mapping(address => bool)) previousData;
 
     function add(address _user, string calldata url) external {
         value[_user].push(url);
     }
 
- 
 
-    function isUserPresent(address _user) internal view returns (bool) {
+    function isUserPresent(address _user) internal view returns (bool) { //internal
         return accessList[msg.sender].user == _user;
     }
 
@@ -64,9 +67,11 @@ contract Upload {
     }
 
 
-    function display(address _user) external view returns (string[] memory) {
+    function display(address _user) external returns (string[] memory) {
         require(_user == msg.sender || ownership[_user][msg.sender], "You don't have access");
-        return value[_user];
+        string[] memory urls = value[_user];
+        emit DisplayUrls(msg.sender, urls);
+        return urls;
     }
 
     function shareAccess() public view returns (Access memory) {
