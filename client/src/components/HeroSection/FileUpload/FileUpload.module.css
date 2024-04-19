@@ -11,6 +11,9 @@
   position: relative;
   margin: 2rem 0;
 }
+.dragging {
+  border-color: #1c8cb1;
+}
 .lightMode {
   background: var(--shadow-light-color);
   border: 2px dashed #2d2e34;

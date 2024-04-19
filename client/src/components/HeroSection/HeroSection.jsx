@@ -6,7 +6,7 @@ import { Buttons } from "../ComponentIndex";
 import FileUpload from "./FileUpload/FileUpload";
 import { themeContext } from "../../Theme";
 
-const HeroSection = () => {
+const HeroSection = ({account, contract}) => {
   const { theme } = useContext(themeContext);
   return (
     <div className={style.heroSection}>
@@ -39,7 +39,7 @@ const HeroSection = () => {
             theme === "light-mode" ? style.lightMode : ""
           }`}
         >
-          <FileUpload />
+          <FileUpload account={account} contract={contract}/>
         </div>
       </div>
     </div>
