@@ -44,6 +44,15 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10mb max size
+
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf' || file.mimetype === 'text/plain' || file.mimetype === 'application/msword' || file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.mimetype === 'application/epub+zip') {
+      cb(null, true) //accept the file
+    } else {
+      cb(null, false)
+      cb(new Error('Invalid file type!'))
+    }
+  }
 }).single("file");
 
 app.post("/upload", async (req, res) => {
@@ -52,6 +61,11 @@ app.post("/upload", async (req, res) => {
       if (!req.file) {
         return res.status(400).send({ message: "No file was uploaded." });
       } else if (err instanceof multer.MulterError) {
+         if (err.code === "LIMIT_FILE_SIZE") {
+           return res
+             .status(400)
+             .send({ message: "File size exceeds the limit" });
+         }
         return res.send(err);
       } else if (err) {
         return res.send(err);

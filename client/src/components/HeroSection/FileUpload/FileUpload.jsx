@@ -6,6 +6,7 @@ import { LuUploadCloud } from "react-icons/lu";
 // Internal imports
 import style from "./FileUpload.module.css";
 import { themeContext } from "../../../Theme";
+import { Alert } from "../../ComponentIndex";
 
 const FileUpload = ({ account, contract }) => {
   const { theme } = useContext(themeContext);
@@ -17,7 +18,7 @@ const FileUpload = ({ account, contract }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [fileLimit, setFileLimit] = useState(false);
 
-  const MAX_COUNT = 4;
+
   let limitExceeded = false;
   const readFile = (file) => {
     const reader = new window.FileReader();
@@ -97,14 +98,18 @@ const FileUpload = ({ account, contract }) => {
         await fetch("http://localhost:3001/upload", {
           method: "POST",
           body: formData,
-
-        }).then(response => {
-          response.json()
-        }).then(data => {
-          console.log(data)
-          console.log("server result gotten");
-        });     
-
+        })
+          .then((response) => {
+            console.log("Response status:", response.status);
+            console.log("Response headers:", response.headers);
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Parsed JSON data:", data);
+            console.log("server result gotten");
+            const imgHash = `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`;
+            console.log(imgHash);
+          });
       } catch (error) {
         console.log(error);
         alert(error.message || "Oops an error occurred. kindly try again");
@@ -113,6 +118,8 @@ const FileUpload = ({ account, contract }) => {
   };
 
   return (
+    <>
+    <Alert message={"Successfully uploaded file"} type={"success"} />
     <div
       className={`${style.file_upload_div} ${
         theme === "light-mode" ? style.lightMode : ""
@@ -137,14 +144,13 @@ const FileUpload = ({ account, contract }) => {
           theme === "light-mode" ? style.lightMode : ""
         }`}
       />
-
       <form action="/upload" encType="multipart/form-data">
         <input
           type="file"
           ref={inputRef}
           name="file"
           id="select_file_input"
-          accept="*"
+          accept=".pdf, .txt, .docx, image/*, .epub"
           onChange={handleFileSelect}
           style={{ display: "none" }}
         />
@@ -170,6 +176,7 @@ const FileUpload = ({ account, contract }) => {
         <LuUploadCloud className={style.upload_icon} />
       )}
     </div>
+    </>
   );
 };
 

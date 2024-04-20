@@ -12,6 +12,7 @@ uploads
 /client/.env
 /client/node_modules
 /client/src/artifacts
+/client/src/artifacts/build-info
 
 # Hardhat files
 /cache
