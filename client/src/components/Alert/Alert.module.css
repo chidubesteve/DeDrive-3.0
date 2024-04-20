@@ -3,6 +3,7 @@
   padding: 20px;
   border-radius: 15px;
   width: 30rem;
+  max-width: 50rem;
   border: 1px solid transparent;
   margin-bottom: 15px;
   position: fixed;
