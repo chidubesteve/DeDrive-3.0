@@ -46,50 +46,63 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10mb max size
 
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf' || file.mimetype === 'text/plain' || file.mimetype === 'application/msword' || file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.mimetype === 'application/epub+zip') {
-      cb(null, true) //accept the file
+    if (
+      file.mimetype.startsWith("image/") ||
+      file.mimetype === "application/pdf" ||
+      file.mimetype === "text/plain" ||
+      file.mimetype === "application/msword" ||
+      file.mimetype ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+      file.mimetype === "application/epub+zip"
+    ) {
+      cb(null, true); //accept the file
     } else {
-      cb(null, false)
-      cb(new Error('Invalid file type!'))
+      // Reject the file
+      cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
     }
-  }
+  },
 }).single("file");
 
-app.post("/upload", async (req, res) => {
-  try {
-    upload(req, res, function (err) {
-      if (!req.file) {
-        return res.status(400).send({ message: "No file was uploaded." });
-      } else if (err instanceof multer.MulterError) {
-         if (err.code === "LIMIT_FILE_SIZE") {
-           return res
-             .status(400)
-             .send({ message: "File size exceeds the limit" });
-         }
-        return res.send(err);
-      } else if (err) {
-        return res.send(err);
-      }
+app.post("/api/upload", async (req, res) => {
+  upload(req, res, function (err) {
+    // if (!req.file) {
+    //   return res.status(400).send({ message: "No file was uploaded." });
+    // }
 
+    if (err instanceof multer.MulterError) {
+      let message = "An error occurred when uploading.";
+      if (err.code === "LIMIT_FILE_SIZE") {
+        message = "File size exceeds the limit. Max-size: 10MB";
+      }
+      if (err.code === "LIMIT_UNEXPECTED_FILE") {
+        message = "Invalid file type!";
+      }
+      return res.status(400).send({ message });
+    } else if (err) {
+      // Handle custom errors or other errors here.
+      return res
+        .status(500)
+        .send({ message: err.message || "A server error occurred." });
+    } else {
       const file = req.file;
       const body = req.body;
       console.log("File is: ", file);
-
+        
       const data = new FormData();
       const fileStream = fs.createReadStream(file.path);
       data.append("file", fileStream);
-
+        
       // Optional parameters
       const metadata = JSON.stringify({
         name: file.originalname,
       });
       data.append("pinataMetadata", metadata);
-
+        
       const options = JSON.stringify({
         cidVersion: 0,
       });
       data.append("pinataOptions", options);
-
+        
       axios
         .post("https://api.pinata.cloud/pinning/pinFileToIPFS", data, {
           maxBodyLength: Infinity,
@@ -103,28 +116,14 @@ app.post("/upload", async (req, res) => {
           return res.status(200).send(pinataResponse.data);
         })
         .catch((error) => {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
+          console.log("Error pinning file to IPFS:", error.message);
+          return res
+            .status(500)
+            .send({ message: "Error pinning file to IPFS" });
         });
-    });
-  } catch (error) {
-    console.error("Error uploading files: ", error);
-    return res.status(500).json({ message: "Error uploading files." });
-  }
+    };
+  })
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
