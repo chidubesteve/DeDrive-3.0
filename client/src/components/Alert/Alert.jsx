@@ -6,16 +6,23 @@ import style from "./Alert.module.css";
 const Alert = ({ type, message }) => {
   const [showAlert, setShowAlert] = useState(true);
 
-  // function to hide alert after 3 secs if user doesn't close it
+  // function to hide alert after 5 secs if user doesn't close it
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowAlert(false);
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearTimeout(timeout);
     };
   }, [showAlert]);
+
+  useEffect(() => {
+    if(message) {
+      setShowAlert(true);
+    }
+  }, [message])
+  
 
   const handleClick = (e) => {
     e.preventDefault();
