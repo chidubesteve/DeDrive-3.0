@@ -39,9 +39,31 @@
   background-color: var(--main-bg-color);
 }
 
-.upload-button {
+.showUploadButtonContainer {
+  width: fit-content;
+  height: auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.showUploadButtonContainer p {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.upload_button {
   border: none;
-  background-color: transparent;
+  background-color: #2196F3;
+  color: #fff;
+  border-radius: 10px;
+  border: none;
+  padding: 12px 17px
+
+}
+.upload_button:hover {
+  cursor: pointer;
+  background-color: #1b7bca;
 }
 
 #label-file-upload.drag-active {
