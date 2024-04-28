@@ -4,8 +4,6 @@ pragma solidity ^0.8.24;
 import "hardhat/console.sol";
 
 contract Upload {
-    //event
-    event DisplayUrls(address indexed owner, string[] _urls);
     
       //struct
     struct Access {
@@ -67,11 +65,9 @@ contract Upload {
     }
 
 
-    function display(address _user) external returns (string[] memory) {
-        require(_user == msg.sender || ownership[_user][msg.sender], "You don't have access");
-        string[] memory urls = value[_user];
-        emit DisplayUrls(msg.sender, urls);
-        return urls;
+    function display(address _user) external view returns (string[] memory) {
+    require(_user == msg.sender || ownership[_user][msg.sender], "You don't have access!");
+        return value[_user];
     }
 
     function shareAccess() public view returns (Access memory) {
