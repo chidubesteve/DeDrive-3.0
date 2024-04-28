@@ -7,11 +7,18 @@ import { ToggleButton } from ".";
 import { Buttons } from ".";
 import { SideBar } from ".";
 
-const NavBar = () => {
+const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
 
   const openSideBar = () => {
     !openSideMenu ? setOpenSideMenu(true) : setOpenSideMenu(false);
+  };
+
+  const truncateAddress = (address) => {
+    if (!address) return "";
+    const firstSix = address.substring(0, 6);
+    const lastFive = address.slice(-5);
+    return <i>{firstSix}...{lastFive}</i>
   };
   return (
     <div className={styles.navBar}>
@@ -43,14 +50,23 @@ const NavBar = () => {
               </li>
             </ul>
           </nav>
+          {account.length > 0 ? (
+            <Buttons
+              btnName="Share"
+              handleClick={() => {}}
+              className={styles.btn}
+            />
+          ) : (
+            ""
+          )}
+
+          {/* // Connect wallet button */}
           <Buttons
-            btnName="Share"
-            handleClick={() => {}}
-            className={styles.btn}
-          />
-          <Buttons
-            btnName="Connect Wallet"
-            handleClick={() => {}}
+            btnName={
+              account.length > 0 ? truncateAddress(account) : "Connect Wallet"
+            }
+            handleClick={connectWallet}
+            loading={loadingConnectWallet}
             className={styles.btn}
           />
           {/* MENU BUTTON */}
