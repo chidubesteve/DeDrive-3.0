@@ -16,6 +16,7 @@ const FileUpload = ({ account, contract }) => {
   const [showUploadButton, setShowUploadButton] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const readFile = (file) => {
     const reader = new window.FileReader();
@@ -36,6 +37,10 @@ const FileUpload = ({ account, contract }) => {
 
   const handleDrop = (event) => {
     event.preventDefault();
+    if (!account) {
+      setAlert(<Alert message={"Connect Metamask first to upload files."} type={"warning"} />)
+      return;
+    }
     setIsDragging(false);
     const droppedFiles = event.dataTransfer.files;
     if (droppedFiles) {
@@ -101,6 +106,7 @@ const FileUpload = ({ account, contract }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
+      setButtonDisabled(true)
       console.log(file);
         const formData = new FormData();
         formData.append("file", file);
@@ -109,22 +115,25 @@ const FileUpload = ({ account, contract }) => {
           method: "POST",
           body: formData,
         })
-          .then((response) => {
+          .then(async (response) => {
             if (!response.ok) {
-              return response.json().then(data => {
-                throw new Error(data.message || "Oops, something went wrong! Kindly try again")
-              });
+              const data = await response.json()
+              throw new Error(data.message || "Oops, something went wrong! Kindly try again");
             }
             return response.json()
           })
           .then((data) => {
             console.log("Parsed JSON data:", data);
-            console.log("server result gotten");
             const imgHash = `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`;
+            console.log(imgHash);
+            contract.add(account, imgHash)
             setAlert(
               <Alert message={"File uploaded successfully!"} type={"success"} />
             );
-            console.log(imgHash);
+            setShowUploadButton(false);
+            setFileName(null);
+            setFile([]);
+            setButtonDisabled(false)
           })
           .catch((err) => {
             err.message === "Invalid file type!"
@@ -178,6 +187,7 @@ const FileUpload = ({ account, contract }) => {
             accept=".pdf, .txt, .docx, image/*, .epub"
             onChange={handleFileSelect}
             style={{ display: "none" }}
+            disabled={!account}
           />
         </form>
 
@@ -190,9 +200,15 @@ const FileUpload = ({ account, contract }) => {
                   e.preventDefault();
                   e.stopPropagation();
                   handleSubmit(e);
-                  setAlert(<Alert message={ "Uploading, please wait..."} type={'info'}/>)
+                  setAlert(
+                    <Alert
+                      message={"Uploading, please wait..."}
+                      type={"info"}
+                    />
+                  );
                 }}
                 className={style.upload_button}
+                disabled={buttonDisabled}
               >
                 Upload File
               </button>
