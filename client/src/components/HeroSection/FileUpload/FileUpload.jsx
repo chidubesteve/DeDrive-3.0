@@ -12,7 +12,6 @@ const FileUpload = ({ account, contract }) => {
   const [file, setFile] = useState([]);
   const inputRef = useRef(null);
   const [fileName, setFileName] = useState(null);
-  const [cid, setCid] = useState();
   const [showUploadButton, setShowUploadButton] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [alert, setAlert] = useState(null);
