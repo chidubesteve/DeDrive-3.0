@@ -20,6 +20,7 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
     const lastFive = address.slice(-5);
     return <i>{firstSix}...{lastFive}</i>
   };
+  const handleConnectClick = account.length > 0 ? () => {} : connectWallet
   return (
     <div className={styles.navBar}>
       <div className={styles.navBarBox}>
@@ -65,7 +66,7 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
             btnName={
               account.length > 0 ? truncateAddress(account) : "Connect Wallet"
             }
-            handleClick={connectWallet}
+            handleClick={handleConnectClick}
             loading={loadingConnectWallet}
             className={styles.btn}
           />
