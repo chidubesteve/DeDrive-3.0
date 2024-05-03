@@ -1,13 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 // internal imports
 import style from "./HeroSection.module.css";
 import { Buttons } from "../ComponentIndex";
 import FileUpload from "./FileUpload/FileUpload";
 import { themeContext } from "../../Theme";
+import Display from "./Display/Display";
 
-const HeroSection = ({account, contract}) => {
+const HeroSection = ({ account, contract }) => {
   const { theme } = useContext(themeContext);
+  const [uploadedData, setUploadedData] = useState([]);
+
+  const handleFileUpload = (data) => {
+    setUploadedData(data);
+  };
+    // Read from sessionStorage when the component mounts
+  useEffect(() => {
+    const sessionData = sessionStorage.getItem('uploadedData');
+   if (sessionData) {
+      try {
+        const parsedData = JSON.parse(sessionData);
+        setUploadedData(parsedData);
+      } catch (error) {
+        console.error("Error parsing uploadedData from sessionStorage:", error);
+        sessionStorage.removeItem('uploadedData');
+        setUploadedData([]);
+      }
+    }
+  }, []);
+
+  // Save to sessionStorage whenever uploadedData changes
+  useEffect(() => {
+    sessionStorage.setItem('uploadedData', JSON.stringify(uploadedData));
+    console.log("Uploaded data changed:", uploadedData);
+
+  }, [uploadedData]);
+
   return (
     <div className={style.heroSection}>
       <div className={style.heroSection_box}>
@@ -39,9 +67,18 @@ const HeroSection = ({account, contract}) => {
             theme === "light-mode" ? style.lightMode : ""
           }`}
         >
-          <FileUpload account={account} contract={contract}/>
+          <FileUpload
+            account={account}
+            contract={contract}
+            onFileUpload={handleFileUpload}
+          />
         </div>
       </div>
+      <Display
+        account={account}
+        contract={contract}
+        uploadedData={uploadedData}
+      />
     </div>
   );
 };

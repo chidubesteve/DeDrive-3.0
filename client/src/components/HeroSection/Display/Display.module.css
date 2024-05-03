@@ -1,0 +1,66 @@
+.display_container {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  margin-top: 4rem;
+}
+.input_container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 25rem;
+}
+input {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.315);
+  outline: none;
+  border-radius: 20px;
+  width: 300px;
+  height: 50px;
+  color: grey;
+  font-style: italic;
+  padding-left: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+.lightMode {
+    border: 2px solid rgba(7, 7, 7, 0.315);
+}
+.image_list {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 13rem);
+  grid-template-rows: repeat(auto, 16rem);
+  gap: 1.2rem 1rem;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background-color: transparent;
+  border: 3px solid rgba(255, 255, 255, 0.315);
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+  width: 80%;
+  height: 60%;
+}
+
+.details_container h4 {
+  margin-bottom: .8rem;
+}
+
+.details_container > p {
+  font-style: italic;
+  color: gray;
+}

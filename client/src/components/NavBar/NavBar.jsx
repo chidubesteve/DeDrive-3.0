@@ -7,6 +7,12 @@ import { ToggleButton } from ".";
 import { Buttons } from ".";
 import { SideBar } from ".";
 
+export const truncateAddress = (address) => {
+  if (!address) return "";
+  const firstSix = address.substring(0, 6);
+  const lastFive = address.slice(-5);
+  return <i>{firstSix}...{lastFive}</i>
+};
 const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
 
@@ -14,12 +20,6 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
     !openSideMenu ? setOpenSideMenu(true) : setOpenSideMenu(false);
   };
 
-  const truncateAddress = (address) => {
-    if (!address) return "";
-    const firstSix = address.substring(0, 6);
-    const lastFive = address.slice(-5);
-    return <i>{firstSix}...{lastFive}</i>
-  };
   const handleConnectClick = account.length > 0 ? () => {} : connectWallet
   return (
     <div className={styles.navBar}>

@@ -13,7 +13,7 @@ const Buttons = ({ btnName, handleClick, className, loading }) => {
         onClick={() => handleClick()}
         disabled={loading}
       >
-        {loading ? "Loading..." : btnName}
+        {loading ? "Detecting wallet" : btnName}
       </button>
     </div>
   );

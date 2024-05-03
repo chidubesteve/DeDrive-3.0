@@ -17,12 +17,11 @@ const App = () => {
   const [loadingConnectWallet, setLoadingConnectWallet] = useState(false);
 
   const connectWallet = async () => {
-    let provider;
-    if (window.ethereum) {
+    let provider = new ethers.BrowserProvider(window.ethereum); //use new ethers.providers.Web3Provider(window.ethereum) for v5 of ethers;
+    if (provider) {
       try {
         setLoadingConnectWallet(true);
         localStorage.setItem("isWalletConnected", true);
-        provider = new ethers.BrowserProvider(window.ethereum); //use new ethers.providers.Web3Provider(window.ethereum) for v5 of ethers
         await provider.send("eth_requestAccounts", []); // to open metamask
         const signer = await provider.getSigner();
         const address = await signer.getAddress();
@@ -37,12 +36,13 @@ const App = () => {
           signer
         );
         setContract(contract);
-        setProvider(signer);
+        setProvider(provider);
 
         // Listen for account changes
         window.ethereum.on("accountsChanged", async (accounts) => {
           if (accounts.length === 0) {
             // No accounts are connected
+            console.log(accounts);
             localStorage.removeItem("isWalletConnected");
             setAccount("");
             setContract(null);
@@ -78,17 +78,32 @@ const App = () => {
       provider = ethers.getDefaultProvider();
     }
   };
-
+  const isUnlocked = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    let unlocked;
+    try {
+      const accounts = await provider.listAccounts();
+      unlocked = accounts.length > 0
+      console.log(accounts);
+    } catch (e) {
+      unlocked = false;
+      console.error
+    }
+    return unlocked;
+  }
   useEffect(() => {
     const connectWalletOnPageLoad = async () => {
       const isWalletConnected = localStorage.getItem("isWalletConnected");
-      if (isWalletConnected === "true") {
+      if (isWalletConnected === "true" && (await isUnlocked())) {
+        console.log(await window.ethereum._metamask.isUnlocked());
         await connectWallet();
+      } else {
+        console.log("wallet is not accessible");
       }
     };
     connectWalletOnPageLoad();
   }, []);
-
+  
   window.ethereum.on("chainChanged", () => {
     window.location.reload();
   });

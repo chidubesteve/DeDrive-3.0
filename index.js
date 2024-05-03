@@ -8,6 +8,7 @@ const app = express();
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const mime = require("mime");
 
 const PORT = process.env.PORT || 3001;
 
@@ -113,7 +114,16 @@ app.post("/api/upload", async (req, res) => {
         })
         .then((pinataResponse) => {
           console.log(pinataResponse.data);
-          return res.status(200).send(pinataResponse.data);
+            const mimeType = mime.getType(file.path);
+            const fileName = file.originalname
+            const response = {
+              IpfsHash: pinataResponse.data.IpfsHash,
+              PinSize: pinataResponse.data.PinSize,
+              Timestamp: pinataResponse.data.Timestamp,
+              MimeType: mimeType,
+              FileName: fileName
+            };
+            res.status(200).send(response);
         })
         .catch((error) => {
           console.log("Error pinning file to IPFS:", error.message);

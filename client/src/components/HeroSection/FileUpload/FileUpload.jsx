@@ -7,7 +7,7 @@ import style from "./FileUpload.module.css";
 import { themeContext } from "../../../Theme";
 import { Alert } from "../../ComponentIndex";
 
-const FileUpload = ({ account, contract }) => {
+const FileUpload = ({ account, contract, onFileUpload }) => {
   const { theme } = useContext(themeContext);
   const [file, setFile] = useState([]);
   const inputRef = useRef(null);
@@ -16,6 +16,7 @@ const FileUpload = ({ account, contract }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [alert, setAlert] = useState(null);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [uploadedData, setUploadedData] = useState([]);
 
   const readFile = (file) => {
     const reader = new window.FileReader();
@@ -37,7 +38,12 @@ const FileUpload = ({ account, contract }) => {
   const handleDrop = (event) => {
     event.preventDefault();
     if (!account) {
-      setAlert(<Alert message={"Connect Metamask first to upload files."} type={"warning"} />)
+      setAlert(
+        <Alert
+          message={"Connect Metamask first to upload files."}
+          type={"warning"}
+        />
+      );
       return;
     }
     setIsDragging(false);
@@ -49,7 +55,6 @@ const FileUpload = ({ account, contract }) => {
         setShowUploadButton(true);
         setFileName("Dropped file: " + droppedFile.name);
         console.log(droppedFile.name);
-        console.log(droppedFile);
       } else if (droppedFiles.length > 1) {
         setAlert(
           <Alert
@@ -82,11 +87,11 @@ const FileUpload = ({ account, contract }) => {
 
   const handleClick = (e) => {
     if (!showUploadButton) {
-    // Make sure the target is not the upload button or its children
-    if (!e.target.closest(`.${style.upload_button}`)) {
-      inputRef.current.click();
+      // Make sure the target is not the upload button or its children
+      if (!e.target.closest(`.${style.upload_button}`)) {
+        inputRef.current.click();
+      }
     }
-  }
   };
 
   const handleFileSelect = (event) => {
@@ -105,48 +110,79 @@ const FileUpload = ({ account, contract }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
-      setButtonDisabled(true)
-      console.log(file);
-        const formData = new FormData();
-        formData.append("file", file);
-        // Send formData to backend server
-        await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        })
-          .then(async (response) => {
-            if (!response.ok) {
-              const data = await response.json()
-              throw new Error(data.message || "Oops, something went wrong! Kindly try again");
-            }
-            return response.json()
-          })
-          .then((data) => {
-            console.log("Parsed JSON data:", data);
-            const imgHash = `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`;
-            console.log(imgHash);
-            contract.add(account, imgHash)
-            setAlert(
-              <Alert message={"File uploaded successfully!"} type={"success"} />
+      setButtonDisabled(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      // Send formData to backend server
+      await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then(async (response) => {
+          if (!response.ok) {
+            const data = await response.json();
+            throw new Error(
+              data.message || "Oops, something went wrong! Kindly try again"
             );
-            setShowUploadButton(false);
-            setFileName(null);
-            setFile([]);
-            setButtonDisabled(false)
-          })
-          .catch((err) => {
-            err.message === "Invalid file type!"
-              ? (setAlert(
-                  <Alert
-                    message={
-                      err.message +
-                      " Supported file types are images, .pdf, .docx, .epub, .txt files"
-                    }
-                    type={"warning"}
-                  />
-                ))
-              : (setAlert(<Alert message={err.message} type={"error"} />));
-          });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setUploadedData((prevData) => [...prevData, data]);
+          console.log("Parsed JSON data:", data);
+          onFileUpload([...uploadedData, data]);
+          // Store updatedData in local storage
+          // localStorage.setItem("uploadedData", JSON.stringify(updatedData));
+          const imgHash = `https://ipfs.io/ipfs/${data.IpfsHash}`;
+          console.log(imgHash);
+          try {
+            contract.add(account, imgHash);
+          } catch (err) {
+            // Store updatedData in local storage
+            // localStorage.setItem("uploadedData", JSON.stringify(updatedData));
+            if (err.code === 4001) {
+              setAlert(
+                <Alert
+                  message={"You rejected the transaction"}
+                  type={"error"}
+                />
+              );
+            } else {
+              setAlert(<Alert message={err.message} type={"error"} />);
+            }
+          }
+          setAlert(
+            <Alert message={"File uploaded successfully!"} type={"success"} />
+          );
+          setShowUploadButton(false);
+          setFileName(null);
+          setFile([]);
+          setButtonDisabled(false);
+        })
+        .catch((err) => {
+          // Update uploadedData even if an error occurs
+          setUploadedData((prevData) => [
+            ...prevData,
+            { error: true, message: err.message },
+          ]);
+          onFileUpload([
+            ...uploadedData,
+            { error: true, message: err.message },
+          ]);
+          // Store updatedData in local storage
+          // localStorage.setItem("uploadedData", JSON.stringify(updatedData));
+          err.message === "Invalid file type!"
+            ? setAlert(
+                <Alert
+                  message={
+                    err.message +
+                    " Supported file types are images, .pdf, .docx, .epub, .txt files"
+                  }
+                  type={"warning"}
+                />
+              )
+            : setAlert(<Alert message={err.message} type={"error"} />);
+        });
     }
   };
 
