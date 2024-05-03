@@ -28,45 +28,48 @@ const Display = ({ account, contract, uploadedData }) => {
       setAlert(<Alert message={err.message} type={"error"} />);
     }
     console.log(dataArray);
-    const isEmpty = Object.keys(dataArray).length === 0;
-    if (!isEmpty) {
-      const files = dataArray.map((url, i) => {
-        const hash = url.substring(url.lastIndexOf("/") + 1); // extract hash
-        const matchedData = uploadedData.find((item) => item.IpfsHash === hash);
 
-        let fileTypeIcon;
-        let fileName;
-        let timestamp;
-
-       const  truncatedAddress = truncateAddress(hash)
-
-        if (matchedData) {
-          fileName = matchedData.FileName;
-          timestamp = new Date(matchedData.Timestamp).toLocaleString();
-
-          const fileType = matchedData.MimeType;
-          if (fileType.startsWith("image/")) {
-            fileTypeIcon = <img src={img} alt="" />;
-          } else if (fileType === "application/pdf") {
-            fileTypeIcon = <img src={pdf} alt="PDF file" />;
-          } else if (
-            fileType === "application/msword" ||
-            fileType ===
-              "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          ) {
-            fileTypeIcon = <img src={word} alt="Word file" />;
-          } else if (fileType === "text/plain") {
-            fileTypeIcon = <img src={txt} alt="Text file" />;
-          } else if (fileType === "application/epub+zip") {
-            fileTypeIcon = <img src={epub} alt="EPUB file" />;
+    try {
+        const isEmpty = Object.keys(dataArray).length === 0;
+      if (!isEmpty) {
+        const files = dataArray.map((url, i) => {
+          const hash = url.substring(url.lastIndexOf("/") + 1); // extract hash
+          const matchedData = uploadedData.find((item) => item.IpfsHash === hash);
+  
+          let fileTypeIcon;
+          let fileName;
+          let timestamp;
+  
+         const  truncatedAddress = truncateAddress(hash)
+  
+          if (matchedData) {
+            fileName = matchedData.FileName;
+            timestamp = new Date(matchedData.Timestamp).toLocaleString();
+  
+            const fileType = matchedData.MimeType;
+            if (fileType.startsWith("image/")) {
+              fileTypeIcon = <img src={img} alt="" />;
+            } else if (fileType === "application/pdf") {
+              fileTypeIcon = <img src={pdf} alt="PDF file" />;
+            } else if (
+              fileType === "application/msword" ||
+              fileType ===
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ) {
+              fileTypeIcon = <img src={word} alt="Word file" />;
+            } else if (fileType === "text/plain") {
+              fileTypeIcon = <img src={txt} alt="Text file" />;
+            } else if (fileType === "application/epub+zip") {
+              fileTypeIcon = <img src={epub} alt="EPUB file" />;
+            } else {
+              fileTypeIcon = <img src={defFile} alt="Default" />;
+            }
           } else {
+            fileName = "Unknown";
+            timestamp = "Unknown";
             fileTypeIcon = <img src={defFile} alt="Default" />;
-          }
-        } else {
-          fileName = "Unknown";
-          timestamp = "Unknown";
-          fileTypeIcon = <img src={defFile} alt="Default" />;
-        }
+          }         
+
         return (
           <div className={style.card} key={i}>
             <a href={url} target="_blank" rel="noreferrer noopener">
@@ -85,6 +88,10 @@ const Display = ({ account, contract, uploadedData }) => {
       setFiles(files);
     } else {
       setAlert(<Alert message={"No files to display"} type={"info"} />);
+    }
+    } catch (e) {
+      setAlert(<Alert message={"No files to display"} type={"info"} />);
+      console.log(e)
     }
   };
   const handleClick = account.length > 0 ? getFiles : () => {};
