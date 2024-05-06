@@ -6,6 +6,8 @@ import styles from "./NavBar.module.css";
 import { ToggleButton } from ".";
 import { Buttons } from ".";
 import { SideBar } from ".";
+import { Modal } from ".";
+
 
 export const truncateAddress = (address) => {
   if (!address) return "";
@@ -13,8 +15,10 @@ export const truncateAddress = (address) => {
   const lastFive = address.slice(-5);
   return <i>{firstSix}...{lastFive}</i>
 };
-const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
+const NavBar = ({ account, connectWallet, loadingConnectWallet, contract }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const openSideBar = () => {
     !openSideMenu ? setOpenSideMenu(true) : setOpenSideMenu(false);
@@ -22,6 +26,8 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
 
   const handleConnectClick = account.length > 0 ? () => {} : connectWallet
   return (
+    <>
+    {modalOpen && <Modal setModalOpen={setModalOpen} contract={contract} />}
     <div className={styles.navBar}>
       <div className={styles.navBarBox}>
         <div className={styles.navBarBoxLeft}>
@@ -51,12 +57,12 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
               </li>
             </ul>
           </nav>
-          {account.length > 0 ? (
-            <Buttons
+            {account.length > 0  ? (
+              !modalOpen &&  (<Buttons
               btnName="Share"
-              handleClick={() => {}}
+              handleClick={() => {setModalOpen(true)}}
               className={styles.btn}
-            />
+            />)
           ) : (
             ""
           )}
@@ -83,6 +89,7 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet }) => {
       {/* SIDEBAR COMPONENT */}
       {openSideMenu && <SideBar setOpenSideMenu={setOpenSideMenu} />}
     </div>
+    </>
   );
 };
 
