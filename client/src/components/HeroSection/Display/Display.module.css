@@ -27,14 +27,17 @@ input {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 
 }
+input[type="text"]:focus {
+  border: 2px solid lightblue;
+}
 .lightMode {
     border: 2px solid rgba(7, 7, 7, 0.315);
 }
 .image_list {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(5, 13rem);
-  grid-template-rows: repeat(auto, 18rem);
+  grid-template-columns: repeat(5, 17rem);
+  grid-template-rows: repeat(auto, 20rem);
   gap: 1.2rem 1rem;
 }
 .card {
@@ -43,6 +46,7 @@ input {
   border-radius: 10px;
   padding: 10px 12px;
   height: auto;
+  width: auto;
   background-color: transparent;
   border: 3px solid rgba(255, 255, 255, 0.315);
 }
