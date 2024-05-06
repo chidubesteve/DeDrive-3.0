@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { ethers } from "ethers";
 
 //internal imports
 import style from "./Display.module.css";
@@ -18,7 +19,7 @@ const Display = ({ account, contract, uploadedData }) => {
     let dataArray;
     const enteredAddress = document.getElementById("getFile").value;
     try {
-      if (enteredAddress) {
+      if (ethers.isAddress(enteredAddress)) {
         dataArray = await contract.display(enteredAddress);
         console.log(uploadedData);
       } else {
@@ -105,9 +106,11 @@ const Display = ({ account, contract, uploadedData }) => {
             type="text"
             name="getFile"
             id="getFile"
-            className={`${style.address} ${theme === "light-mode" ? style.lightMode : ""
-          }`}
+            className={`${style.address} ${
+              theme === "light-mode" ? style.lightMode : ""
+            }`}
             placeholder="Enter Address"
+            title="Please fill out this field"
             disabled={!account}
           />
           <Buttons btnName="Get Files" handleClick={handleClick} />
