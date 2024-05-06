@@ -14,13 +14,13 @@ const ToggleButton = () => {
         <MdLightMode
           className={styles.dark_mode_icon}
           onClick={toggleTheme}
-          title="switch to dark mode"
+          title="switch to light mode"
         />
       ) : (
         <MdDarkMode
           className={styles.light_mode_icon}
           onClick={toggleTheme}
-          title="switch to light mode"
+          title="switch to dark mode"
         />
       )}
     </div>
