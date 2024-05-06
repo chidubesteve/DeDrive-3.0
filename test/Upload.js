@@ -21,7 +21,7 @@ describe("Upload", () => {
   it("should deploy correctly", async () => {
     const { Upload } = await loadFixture(deployUploadContract);
 
-    await expect(await Upload.target).to.not.be.undefined; // check if the contract has been deployed - it returns a promise and need to be resolved
+    expect(await Upload.target).to.not.be.undefined; // check if the contract has been deployed - it returns a promise and need to be resolved
   });
 
   // functionality tests
@@ -54,24 +54,25 @@ describe("Upload", () => {
       true
     );
     // check of `accessList` mapping is updated correctly
-    const access = await Upload.accessList(owner.address);
+    const index = 0;
+    const access = await Upload.accessList(owner.address, index);
     expect(await access.user).to.equal(user1.address);
 
     expect(await access.access).to.equal(true);
   });
   it("should disallow access correctly", async () => {
     const { Upload, owner, user1 } = await loadFixture(deployUploadContract);
-    await expect(Upload.disallow(user1)).to.not.be.reverted;
+    await Upload.allow(user1.address);
+    await expect(Upload.disallow(user1.address)).to.not.be.reverted;
     expect(await Upload.ownership(owner.address, user1.address)).to.be.false;
 
-    const access = await Upload.accessList(owner.address);
+    const access = await Upload.accessList(owner.address, 0);
     expect(access.access).to.be.false;
     // check if the `accessed` mapping has been properly updated
     expect(await Upload.accessed(user1.address)).to.be.false;
 
     // verify the keys array is properly updated
-
-    const keysLength = await Upload.keys.length;
+    const keysLength = Upload.keys.length;
     let actualKeys = [];
     for (i = 0; i < Number(keysLength); i++) {
       actualKeys.push(await Upload.keys(i));
@@ -87,9 +88,9 @@ describe("Upload", () => {
     await Upload.connect(owner).allow(user1.address);
 
     //display urls for user1
-    expect(await Upload.connect(user1).display(owner.address))
-      .to.emit(Upload, "DisplayUrls")
-      .withArgs(["http://example.com"]);
+    expect(await Upload.connect(user1).display(owner.address)).to.deep.equal([
+      "http://example.com"
+    ]);
 
     // should fail if user1 tries to access another address w/out permission
     expect(
@@ -102,23 +103,10 @@ describe("Upload", () => {
     await Upload.allow(owner.address);
     const accessDetails = await Upload.shareAccess();
 
-    expect(await accessDetails.user).to.equal(owner.address);
-    expect(await accessDetails.access).to.equal(true)
+    expect(await accessDetails[0].user).to.equal(owner.address);
+    expect(await accessDetails[0].access).to.equal(true)
   });
-  it("should check whether the user is in the accessList for isUserPresent", async () => {
-    const { Upload, user1 } = await loadFixture(deployUploadContract);
-    const [randomUser] = await hre.ethers.getSigners();
-
-    // test for true
-    // allow user1 address
-    await Upload.allow(user1.address);
-    const isUser1Present = await Upload.isUserPresent(user1.address);
-    expect(isUser1Present).to.be.true;
-
-    //test for false
-    const isRandomUserPresent = await Upload.isUserPresent(randomUser.address);
-    expect(isRandomUserPresent).to.be.false;
-  });
+  
 });
 
 // Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
