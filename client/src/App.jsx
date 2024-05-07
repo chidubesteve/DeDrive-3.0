@@ -111,10 +111,12 @@ const App = () => {
   return (
     <>
       {alert}
+
       <NavBar
         account={account}
         connectWallet={connectWallet}
         loadingConnectWallet={loadingConnectWallet}
+        contract={contract}
       />
       <HeroSection account={account} contract={contract} />
       <Footer />
