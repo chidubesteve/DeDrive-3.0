@@ -11,7 +11,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
-  transition: opacity 0.3s ease, top 0.3s ease;
+  transition: display 0.3s ease, top 0.3s ease;
 }
 
 /* The close button */
@@ -64,4 +64,11 @@
 .closebtn:hover {
   color: grey;
   font-size: 25px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+ .alert{
+width:  20rem;
+max-width: 22rem;
+ } 
 }
