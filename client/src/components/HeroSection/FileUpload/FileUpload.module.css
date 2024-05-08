@@ -93,12 +93,20 @@
   color: var(--secondary-bg-color);
   border: none;
 }
-@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+@media screen and (min-device-width: 320px) and (max-device-width: 600px) {
   .file_upload_div {
-    height: 20rem;
+    height: 18rem;
   }
   .upload_icon {
     font-size: 90px;
+  }
+}
+@media screen and (min-device-width: 601px) and (max-device-width: 768px) {
+  .file_upload_div {
+    height: 21rem;
+  }
+    .upload_icon {
+    font-size: 95px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1000px) {
