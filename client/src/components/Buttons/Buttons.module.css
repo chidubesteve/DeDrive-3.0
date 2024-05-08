@@ -13,7 +13,7 @@
   font-size: 1rem;
   border-radius: 2rem;
   color: var(--icons-bg-color);
-  word-spacing: 2px;
+  text-wrap: nowrap;
 }
 
 .button:hover {
