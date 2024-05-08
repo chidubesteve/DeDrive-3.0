@@ -27,10 +27,10 @@
 }
 .rightSideNav {
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr 0.5fr .8fr;
+  grid-template-columns: 0.2fr 1fr 0.5fr .8fr;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  column-gap: 0.5rem;
 }
 
 .btn {
@@ -43,6 +43,9 @@
   display: flex;
   justify-content: space-evenly;
 }
+ .navBox ul li {
+cursor: pointer
+ }
 .navbar_container_right_menuBtn {
   display: none;
 }
