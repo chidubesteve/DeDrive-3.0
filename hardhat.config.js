@@ -1,6 +1,9 @@
-require("@nomicfoundation/hardhat-toolbox");
-
 /** @type import('hardhat/config').HardhatUserConfig */
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+const { ALCHEMY_API_URL, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
+
 module.exports = {
   solidity: {
     version: "0.8.24",
@@ -8,13 +11,27 @@ module.exports = {
       optimizer: {
         enabled: true,
         runs: 200,
-      }
+      },
     },
   },
+  // defaultNetwork: "sepolia",
   networks: {
     hardhat: {
-      chainId: 1337,
+      chainId: 31337,
     },
+    localhost: {
+      chainId: 31337,
+    },
+    sepolia: {
+      url: ALCHEMY_API_URL,
+      accounts: [PRIVATE_KEY],
+      chainId: 11155111,
+      saveDeployments: true,
+    },
+  },
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY,
+    customChains: [],
   },
   paths: {
     artifacts: "./client/src/artifacts",
