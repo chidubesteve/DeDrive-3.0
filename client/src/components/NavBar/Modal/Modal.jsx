@@ -55,6 +55,7 @@ const Modal = ({setModalOpen, contract}) => {
       }
     } catch (err) {
       console.error("Error fetching address list:", err);
+      setAlert(<Alert message={"An Error occurred, Please try again."} type={"error"} />)
     }
     } 
     contract && accessList();
