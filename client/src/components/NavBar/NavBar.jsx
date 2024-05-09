@@ -133,10 +133,11 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet, contract }) => {
         {openSideMenu && (
           <SideBar
             setOpenSideMenu={setOpenSideMenu}
-            contract={contract}
             account={account}
             loadingConnectWallet={loadingConnectWallet}
             connectWallet={connectWallet}
+            setRevokeModal={setRevokeModal}
+            setModalOpen={setModalOpen}
           />
         )}
       </div>
