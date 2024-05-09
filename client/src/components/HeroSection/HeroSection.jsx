@@ -14,24 +14,24 @@ const HeroSection = ({ account, contract }) => {
   const handleFileUpload = (data) => {
     setUploadedData(data);
   };
-    // Read from sessionStorage when the component mounts
+    // Read from localStorage when the component mounts
   useEffect(() => {
-    const sessionData = sessionStorage.getItem('uploadedData');
-   if (sessionData) {
+    const localData = localStorage.getItem('uploadedData');
+   if (localData) {
       try {
-        const parsedData = JSON.parse(sessionData);
+        const parsedData = JSON.parse(localData);
         setUploadedData(parsedData);
       } catch (error) {
-        console.error("Error parsing uploadedData from sessionStorage:", error);
-        sessionStorage.removeItem('uploadedData');
+        console.error("Error parsing uploadedData from localStorage:", error);
+        localStorage.removeItem('uploadedData');
         setUploadedData([]);
       }
     }
   }, []);
 
-  // Save to sessionStorage whenever uploadedData changes
+  // Save to localStorage whenever uploadedData changes
   useEffect(() => {
-    sessionStorage.setItem('uploadedData', JSON.stringify(uploadedData));
+    localStorage.setItem('uploadedData', JSON.stringify(uploadedData));
     console.log("Uploaded data changed:", uploadedData);
 
   }, [uploadedData]);
