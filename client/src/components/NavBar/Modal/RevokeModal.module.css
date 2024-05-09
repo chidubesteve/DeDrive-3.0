@@ -10,8 +10,8 @@
 }
 
 .modalContainer {
-  width: 500px;
-  height: 200px;
+  width: 31.25rem;
+  height: 12.5rem;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -99,4 +99,18 @@
 
 input[type="text"]:focus {
   border: 2px solid lightblue;
+}
+
+@media screen and (min-width: 425px) and (max-width: 768px) {
+  .modalContainer {
+    width: 28rem;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 424px) {
+    .modalContainer {
+    width: 22rem;
+  }
+  .address {
+    width: 280px;
+  }
 }
