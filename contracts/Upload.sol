@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
+
+/// @author chidubesteve (https://github.com/chidubesteve)
 contract Upload {
           //struct
     struct Access {
