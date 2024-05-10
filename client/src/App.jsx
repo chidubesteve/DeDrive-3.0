@@ -42,7 +42,6 @@ const App = () => {
         window.ethereum.on("accountsChanged", async (accounts) => {
           if (accounts.length === 0) {
             // No accounts are connected
-            console.log(accounts);
             localStorage.removeItem("isWalletConnected");
             setAccount("");
             setContract(null);
@@ -87,7 +86,6 @@ const App = () => {
       console.log(accounts);
     } catch (e) {
       unlocked = false;
-      console.error
     }
     return unlocked;
   }

@@ -129,17 +129,11 @@ const FileUpload = ({ account, contract, onFileUpload }) => {
         })
         .then((data) => {
           setUploadedData((prevData) => [...prevData, data]);
-          console.log("Parsed JSON data:", data);
           onFileUpload([...uploadedData, data]);
-          // Store updatedData in local storage
-          // localStorage.setItem("uploadedData", JSON.stringify(updatedData));
           const imgHash = `https://ipfs.io/ipfs/${data.IpfsHash}`;
-          console.log(imgHash);
           try {
             contract.add(account, imgHash);
           } catch (err) {
-            // Store updatedData in local storage
-            // localStorage.setItem("uploadedData", JSON.stringify(updatedData));
             if (err.code === 4001) {
               setAlert(
                 <Alert
@@ -169,8 +163,6 @@ const FileUpload = ({ account, contract, onFileUpload }) => {
             ...uploadedData,
             { error: true, message: err.message },
           ]);
-          // Store updatedData in local storage
-          // localStorage.setItem("uploadedData", JSON.stringify(updatedData));
           err.message === "Invalid file type!"
             ? setAlert(
                 <Alert
