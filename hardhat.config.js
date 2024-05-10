@@ -20,7 +20,7 @@ module.exports = {
       chainId: 31337,
     },
     localhost: {
-      chainId: 1337,
+      chainId: 31337,
     },
     sepolia: {
       url: ALCHEMY_API_URL,
@@ -34,6 +34,6 @@ module.exports = {
     customChains: [],
   },
   paths: {
-    artifacts: "./client/src/artifacts",
+    artifacts: "./artifacts",
   },
 };

@@ -11,10 +11,10 @@ uploads
 # client folder
 /client/.env
 /client/node_modules
-/client/src/artifacts
 
 # Hardhat files
 /cache
+/artifacts
 
 # TypeChain files
 /typechain
