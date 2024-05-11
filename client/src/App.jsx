@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
+import {abi, contractAddresses } from "./constants";
 
 // internal imports
 import styles from "./globals.css";
@@ -18,6 +18,9 @@ const App = () => {
 
   const connectWallet = async () => {
     let provider = new ethers.BrowserProvider(window.ethereum); //use new ethers.providers.Web3Provider(window.ethereum) for v5 of ethers;
+    const chainIdBigInt = (await provider.getNetwork()).chainId;
+    const chainId = Number(chainIdBigInt);
+    console.log(chainId)
     if (provider) {
       try {
         setLoadingConnectWallet(true);
@@ -28,11 +31,12 @@ const App = () => {
         console.log(address);
         setAccount(address);
 
-        // to create instance of contract you need => its. ABI, address. and signer/provider object
-        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+        // to create instance of contract you need => its. ABI, address. and signer/provider object "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+        const contractAddress = chainId in contractAddresses ? contractAddresses[chainId][0] : null;
+        console.log(contractAddress)
         const contract = new ethers.Contract(
           contractAddress,
-          Upload.abi,
+          abi,
           signer
         );
         setContract(contract);
