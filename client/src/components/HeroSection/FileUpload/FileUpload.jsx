@@ -131,27 +131,36 @@ const FileUpload = ({ account, contract, onFileUpload }) => {
           setUploadedData((prevData) => [...prevData, data]);
           onFileUpload([...uploadedData, data]);
           const imgHash = `https://ipfs.io/ipfs/${data.IpfsHash}`;
-          try {
-            contract.add(account, imgHash);
-          } catch (err) {
-            if (err.code === 4001) {
+          contract
+            .add(account, imgHash)
+            .then(() => {
               setAlert(
                 <Alert
-                  message={"You rejected the transaction"}
-                  type={"error"}
+                  message={"File uploaded successfully!"}
+                  type={"success"}
                 />
               );
-            } else {
-              setAlert(<Alert message={err.message} type={"error"} />);
-            }
-          }
-          setAlert(
-            <Alert message={"File uploaded successfully!"} type={"success"} />
-          );
-          setShowUploadButton(false);
-          setFileName(null);
-          setFile([]);
-          setButtonDisabled(false);
+              setShowUploadButton(false);
+              setFileName(null);
+              setFile([]);
+              setButtonDisabled(false);
+            })
+            .catch((err) => {
+              if (err.reason === "rejected") {
+                setAlert(
+                  <Alert
+                    message={"You rejected the transaction"}
+                    type={"error"}
+                  />
+                );
+              } else {
+                setAlert(<Alert message={err.message} type={"error"} />);
+              }
+              setShowUploadButton(false);
+              setFileName(null);
+              setFile([]);
+              setButtonDisabled(false);
+            });
         })
         .catch((err) => {
           // Update uploadedData even if an error occurs
