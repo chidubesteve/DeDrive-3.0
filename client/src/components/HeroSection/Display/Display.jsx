@@ -15,15 +15,17 @@ const Display = ({ account, contract, uploadedData }) => {
   const { theme } = useContext(themeContext);
   const [files, setFiles] = useState("");
 
-
   //function to copy text to clipboard
   const copy = (text) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setAlert(<Alert message={"Copied!"} type={"success"}/>)
-    }).catch(e => {
-      setAlert(<Alert message={"Didn't copy"} type={"error"}/>)
-    });
-  }
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setAlert(<Alert message={"Copied!"} type={"success"} />);
+      })
+      .catch((e) => {
+        setAlert(<Alert message={"Didn't copy"} type={"error"} />);
+      });
+  };
 
   const getFiles = async () => {
     let dataArray;
@@ -94,8 +96,10 @@ const Display = ({ account, contract, uploadedData }) => {
                   onClick={() => {
                     copy(hash);
                   }}
-                className={style.tooltip}>CID: {truncatedAddress} 
-                 <span className={style.tooltiptext}>click to copy</span>
+                  className={style.tooltip}
+                >
+                  CID: {truncatedAddress}
+                  <span className={style.tooltiptext}>click to copy</span>
                 </p>
                 <p>{timestamp}</p>
               </div>
@@ -105,15 +109,18 @@ const Display = ({ account, contract, uploadedData }) => {
         setFiles(files);
       } else {
         setAlert(<Alert message={"No files to display"} type={"info"} />);
+        setFiles("");
       }
     } catch (err) {
       setAlert(
         <Alert
-          message={`Error displaying files, ${err.message}`}
+          message={`Error displaying files, ${err.reason}`}
           type={"error"}
         />
       );
-      console.log(err)
+      setFiles("");
+
+      console.log(err);
     }
   };
   const handleClick = account.length > 0 ? getFiles : () => {};
