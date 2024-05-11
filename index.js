@@ -24,6 +24,9 @@ app.use(express.json());
 app.use(limiter);
 app.use(cors());
 
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
 const uploadDirectory = path.join(__dirname, "/uploads/");
 
 // ensure that the directory exits
@@ -134,6 +137,11 @@ app.post("/api/upload", async (req, res) => {
     };
   })
 });
+
+// All other request not handled by api will return the react app
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
