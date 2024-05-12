@@ -6,6 +6,7 @@ import { LuUploadCloud } from "react-icons/lu";
 import style from "./FileUpload.module.css";
 import { themeContext } from "../../../Theme";
 import { Alert } from "../../ComponentIndex";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const FileUpload = ({ account, contract, onFileUpload }) => {
   const { theme } = useContext(themeContext);
@@ -114,7 +115,7 @@ const FileUpload = ({ account, contract, onFileUpload }) => {
       const formData = new FormData();
       formData.append("file", file);
       // Send formData to backend server
-      await fetch("/api/upload", {
+      await fetch(`${apiUrl}/api/upload`, {
         method: "POST",
         body: formData,
       })

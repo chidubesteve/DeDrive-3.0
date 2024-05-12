@@ -9,7 +9,8 @@ node_modules
 uploads
 
 # client folder
-/client/.env
+/client/.env.production
+/client/.env.development
 /client/node_modules
 
 # Hardhat files
