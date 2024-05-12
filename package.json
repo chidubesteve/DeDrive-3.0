@@ -11,7 +11,8 @@
     "build": "npm install; cd client && npm install && npm run build"
   },
   "engines": {
-    "node": "20.12.1"
+    "node": "20.12.1",
+    "npm": "10.5.0"
   },
   "dependencies": {
     "axios": "^1.6.8",
