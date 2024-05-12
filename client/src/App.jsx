@@ -20,7 +20,11 @@ const App = () => {
     let provider = new ethers.BrowserProvider(window.ethereum); //use new ethers.providers.Web3Provider(window.ethereum) for v5 of ethers;
     const chainIdBigInt = (await provider.getNetwork()).chainId;
     const chainId = Number(chainIdBigInt);
-    console.log(chainId)
+
+    if (chainId !== 11155111) {
+      await switchSepoliaChain()
+    }
+
     if (provider) {
       try {
         setLoadingConnectWallet(true);
@@ -28,12 +32,10 @@ const App = () => {
         await provider.send("eth_requestAccounts", []); // to open metamask
         const signer = await provider.getSigner();
         const address = await signer.getAddress();
-        console.log(address);
         setAccount(address);
 
         // to create instance of contract you need => its. ABI, address. and signer/provider object "0x5FbDB2315678afecb367f032d93F642f64180aa3"
         const contractAddress = chainId in contractAddresses ? contractAddresses[chainId][0] : null;
-        console.log(contractAddress)
         const contract = new ethers.Contract(
           contractAddress,
           abi,
@@ -81,6 +83,39 @@ const App = () => {
       provider = ethers.getDefaultProvider();
     }
   };
+
+  const switchSepoliaChain = async () => {
+    try {
+      await window.ethereum.request({
+          "method": "wallet_switchEthereumChain",
+          "params" : [{"chainId": "0xaa36a7"}]
+      })
+    } catch (e) {
+      if (e.code === 4902) {
+        try {
+          await window.ethereum.request({
+            "method": "wallet_addEthereumChain",
+            "params": [
+              {
+                "chainId": "0xaa36a7",
+                "chainName": "Sepolia",
+                "nativeCurrency": {
+                  "name": "sepoliaETH",
+                  "symbol": "ETH",
+                  "decimals": 18
+                },
+                "rpcUrls": ["wss://ethereum-sepolia-rpc.publicnode.com"],
+                "blockExplorerUrls": ["https://sepolia.etherscan.io"]
+              }
+            ]
+          })
+        } catch(e) {
+          console.error(e);
+          setAlert(<Alert message={"Error adding sepolia network"} type={"error"} />)
+        }
+      }
+    }
+  }
   const isUnlocked = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
     let unlocked;
