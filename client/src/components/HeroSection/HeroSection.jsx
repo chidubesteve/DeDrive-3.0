@@ -32,7 +32,7 @@ const HeroSection = ({ account, contract }) => {
   // Save to localStorage whenever uploadedData changes
   useEffect(() => {
     localStorage.setItem('uploadedData', JSON.stringify(uploadedData));
-    console.log("Uploaded data changed:", uploadedData);
+    console.log("Uploaded data changed:");
 
   }, [uploadedData]);
 
