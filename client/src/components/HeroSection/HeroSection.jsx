@@ -61,8 +61,10 @@ const HeroSection = ({ account, contract }) => {
             <Buttons
               btnName="Watch Video  &#x25B6;"
               className={style.btn}
-              handleClick={() => {
-                "https://www.youtube.com/watch?v=1vNdbMSd_WY";
+              handleClick={(event) => {
+                event.preventDefault();
+                window.open("https://www.youtube.com/watch?v=1vNdbMSd_WY", "_blank")
+                
               }}
             />
           </div>
