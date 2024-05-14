@@ -114,7 +114,7 @@ const Display = ({ account, contract, uploadedData }) => {
     } catch (err) {
       setAlert(
         <Alert
-          message={`Error displaying files, ${err.reason}`}
+          message={`Error displaying files, ${err.reason || err.message}`}
           type={"error"}
         />
       );
