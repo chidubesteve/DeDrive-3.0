@@ -14,26 +14,25 @@ const HeroSection = ({ account, contract }) => {
   const handleFileUpload = (data) => {
     setUploadedData(data);
   };
-    // Read from localStorage when the component mounts
+  // Read from sessionStorage when the component mounts
   useEffect(() => {
-    const localData = localStorage.getItem('uploadedData');
-   if (localData) {
+    const sessionData = sessionStorage.getItem("uploadedData");
+    if (sessionData) {
       try {
-        const parsedData = JSON.parse(localData);
+        const parsedData = JSON.parse(sessionData);
         setUploadedData(parsedData);
       } catch (error) {
-        console.error("Error parsing uploadedData from localStorage:", error);
-        localStorage.removeItem('uploadedData');
+        console.error("Error parsing uploadedData from sessionStorage:", error);
+        sessionStorage.removeItem("uploadedData");
         setUploadedData([]);
       }
     }
   }, []);
 
-  // Save to localStorage whenever uploadedData changes
+  // Save to sessionStorage whenever uploadedData changes
   useEffect(() => {
-    localStorage.setItem('uploadedData', JSON.stringify(uploadedData));
+    sessionStorage.setItem("uploadedData", JSON.stringify(uploadedData));
     console.log("Uploaded data changed:");
-
   }, [uploadedData]);
 
   return (
@@ -59,7 +58,13 @@ const HeroSection = ({ account, contract }) => {
                 IPFS
               </a>
             </p>
-            <Buttons btnName="Watch Video  &#x25B6;" className={style.btn} handleClick={ () => {"https://www.youtube.com/watch?v=1vNdbMSd_WY"}} />
+            <Buttons
+              btnName="Watch Video  &#x25B6;"
+              className={style.btn}
+              handleClick={() => {
+                "https://www.youtube.com/watch?v=1vNdbMSd_WY";
+              }}
+            />
           </div>
         </div>
         <div
