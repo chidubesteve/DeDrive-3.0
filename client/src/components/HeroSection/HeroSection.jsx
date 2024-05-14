@@ -59,7 +59,7 @@ const HeroSection = ({ account, contract }) => {
                 IPFS
               </a>
             </p>
-            <Buttons btnName="Watch Video  &#x25B6;" className={style.btn} />
+            <Buttons btnName="Watch Video  &#x25B6;" className={style.btn} handleClick={ () => {"https://www.youtube.com/watch?v=1vNdbMSd_WY"}} />
           </div>
         </div>
         <div
