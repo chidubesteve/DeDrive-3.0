@@ -27,7 +27,7 @@
 }
 .rightSideNav {
   display: grid;
-  grid-template-columns: 0.2fr 1fr 0.5fr .8fr;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   align-items: center;
   justify-content: center;
   column-gap: 0.5rem;
