@@ -78,3 +78,9 @@ video {
 .App {
   padding: 2rem;
 }
+@media screen and (max-width: 600px) {
+  .App {
+    padding: 1rem;
+  }
+  
+}
