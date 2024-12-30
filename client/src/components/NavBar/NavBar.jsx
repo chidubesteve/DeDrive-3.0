@@ -65,9 +65,12 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet, contract }) => {
             <h1 className={styles.AppNameText}>DeDrive 3.0</h1>
           </div>
           <div className={styles.rightSideNav}>
-            <ToggleButton />
             <nav className={styles.navBox}>
               <ul>
+                <li className={styles.themeToggle}>
+                  <ToggleButton />
+                </li>
+
                 <li className={styles.navBoxItem}>
                   <a
                     href="https://github.com/chidubesteve/DeDrive-3.0/blob/main/README.md"
@@ -96,37 +99,43 @@ const NavBar = ({ account, connectWallet, loadingConnectWallet, contract }) => {
                       </li>
                     )
                   : ""}
-              </ul>
-            </nav>
-            {account.length > 0
-              ? !modalOpen && (
+                {account.length > 0
+                  ? !modalOpen && (
+                      <Buttons
+                        btnName="Share"
+                        handleClick={() => {
+                          openModal();
+                        }}
+                        className={styles.btn}
+                      />
+                    )
+                  : ""}
+
+                {/* // Connect wallet button */}
+                <li>
+                  {" "}
                   <Buttons
-                    btnName="Share"
-                    handleClick={() => {
-                      openModal();
-                    }}
+                    btnName={
+                      account.length > 0
+                        ? truncateAddress(account)
+                        : "Connect Wallet"
+                    }
+                    handleClick={handleConnectClick}
+                    loading={loadingConnectWallet}
                     className={styles.btn}
                   />
-                )
-              : ""}
+                </li>
 
-            {/* // Connect wallet button */}
-            <Buttons
-              btnName={
-                account.length > 0 ? truncateAddress(account) : "Connect Wallet"
-              }
-              handleClick={handleConnectClick}
-              loading={loadingConnectWallet}
-              className={styles.btn}
-            />
-            {/* MENU BUTTON */}
-            <div className={styles.navbar_container_right_menuBtn}>
-              <CgMenuRight
-                className={styles.menuIcon}
-                onClick={() => openSideBar()}
-                size={25}
-              />
-            </div>
+                {/* MENU BUTTON */}
+                <div className={styles.navbar_container_right_menuBtn}>
+                  <CgMenuRight
+                    className={styles.menuIcon}
+                    onClick={() => openSideBar()}
+                    size={25}
+                  />
+                </div>
+              </ul>
+            </nav>
           </div>
         </div>
         {/* SIDEBAR COMPONENT */}

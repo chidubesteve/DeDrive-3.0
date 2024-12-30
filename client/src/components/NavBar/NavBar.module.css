@@ -28,8 +28,6 @@
 .rightSideNav {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  align-items: center;
-  justify-content: center;
   column-gap: 0.5rem;
 }
 
@@ -41,6 +39,7 @@
 .navBox ul {
   list-style-type: none;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
 }
  .navBox ul li {
@@ -55,15 +54,13 @@ cursor: pointer
   cursor: pointer;
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (min-width: 320px) and (max-width: 1024px) {
   .navBarBoxLeft {
     grid-template-columns: 1fr;
     padding-left: 1.2rem;
   }
-  .rightSideNav {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .navBox {
+
+  .navBoxItem {
     display: none;
   }
   .btn {
