@@ -34,11 +34,12 @@
     white 85%
   );
 }
-.heroSection_box_left h1 {
+.heroSection_box_left div h1 {
   font-size: 4rem;
-  line-height: 1.5;
+  line-height: 1.3;
   margin-bottom: 1rem;
   font-weight: 600;
+  position: relative;
 }
 .btn {
   display: flex;
@@ -52,17 +53,14 @@
 .heroSection_box_left p a {
   text-decoration: underline dashed #1c8cb1;
 }
-.underlined_1 {
-  position: relative;
-  margin-right: 1rem;
-}
+
 .underlined_1:after {
   content: "";
   position: absolute;
-  bottom: -10px;
-  left: 0;
+  bottom: -5px;
+  left: 25rem;
   height: 7px;
-  width: 100%;
+  width: 150px;
   border: solid 2px #1c8cb1;
   border-color: #1c8cb1 transparent transparent transparent;
   border-radius: 50%;
@@ -77,33 +75,27 @@
 .underlined_2:after {
   content: "";
   position: absolute;
-  bottom: -20px;
+  bottom: -10px;
   left: -10rem;
   height: 7px;
-  width: calc(100% + 150px); /* Adjusted width to account for rotation */
+  width: 120px; /* Adjusted width to account for rotation */
   border: solid 2px #c30d47;
   border-color: #c30d47 transparent transparent transparent;
   border-radius: 50%;
   transform: rotate(-5deg);
   clip-path: inset(0 0 50% 0);
 }
-@media screen and (max-width: 320px) {
-  .h1Cont {
-    font-size: 3rem;
-    padding: 0;
-    margin-top: -3.9rem;
-  }
+@media screen and (max-width: 1160px) {
   .underlined_1:after {
-    bottom: 50px;
-    width: 10rem;
+    bottom: -1px;
+    left: 2rem;
   }
-   .underlined_2:after{
-    bottom:45px;
-    left: 90px;
-   }
-
+  .underlined_2:after {
+    bottom: -10px;
+  }
 }
-@media screen and (min-width: 310px) and (max-width: 767px) {
+
+@media screen and (max-width: 768px) {
   .heroSection {
     width: 90%;
     margin: 1rem auto;
@@ -116,14 +108,22 @@
     justify-content: center;
   }
 
-  .heroSection_box_left {
-    padding-right: 2rem;
-  }
-  .heroSection_box_left div h1, .h1Cont {
-    font-size: 3rem;
-    line-height: 1.4cm;
+  .underlined_1:after,
+  .underlined_2:after {
+    display: none;
   }
 
+  .heroSection_box_left div h1 {
+    font-size: 3rem;
+    margin-bottom: 0;
+    line-height: normal;
+  }
+    .h1Cont {
+    font-size: 3rem;
+    padding: 0;
+    /* margin-top: -3.9rem; */
+    margin-bottom: 1rem !important;
+  }
 }
 
 @media screen and (min-width: 768px) {

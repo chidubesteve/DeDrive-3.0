@@ -40,8 +40,8 @@ const HeroSection = ({ account, contract }) => {
       <div className={style.heroSection_box}>
         <div className={style.heroSection_box_left}>
           <div>
-            <h1>
-              Upload and <span className={style.underlined_1}>share</span>
+            <h1 className={style.headerText}>
+              Upload and share<span className={style.underlined_1}></span>
               <span className={`${style.underlined_2}`}></span>
             </h1>
             <h1 className={style.h1Cont}>your files.</h1>
@@ -63,8 +63,10 @@ const HeroSection = ({ account, contract }) => {
               className={style.btn}
               handleClick={(event) => {
                 event.preventDefault();
-                window.open("https://www.youtube.com/watch?v=1vNdbMSd_WY", "_blank")
-                
+                window.open(
+                  "https://www.youtube.com/watch?v=1vNdbMSd_WY",
+                  "_blank"
+                );
               }}
             />
           </div>
