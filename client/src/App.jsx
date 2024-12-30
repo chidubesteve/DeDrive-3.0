@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import {abi, contractAddresses } from "./constants";
 
 // internal imports
-import styles from "./globals.css";
+import "./globals.css";
 import { NavBar } from "./components/ComponentIndex";
 import { Footer } from "./components/ComponentIndex";
 import { HeroSection } from "./components/ComponentIndex";
@@ -16,7 +16,7 @@ const App = () => {
   const [alert, setAlert] = useState(null);
   const [loadingConnectWallet, setLoadingConnectWallet] = useState(false);
 
-  const connectWallet = async () => {
+  const connectWallet = useCallback(async () => {
     let provider = new ethers.BrowserProvider(window.ethereum); //use new ethers.providers.Web3Provider(window.ethereum) for v5 of ethers;
     const chainIdBigInt = (await provider.getNetwork()).chainId;
     const chainId = Number(chainIdBigInt);
@@ -82,7 +82,7 @@ const App = () => {
       );
       provider = ethers.getDefaultProvider();
     }
-  };
+  }, []);
 
   const switchSepoliaChain = async () => {
     try {
@@ -139,14 +139,14 @@ const App = () => {
       }
     };
     connectWalletOnPageLoad();
-  }, []);
+  }, [connectWallet]);
   
   window.ethereum.on("chainChanged", () => {
     window.location.reload();
   });
 
   return (
-    <>
+    <div className="App">
       {alert}
 
       <NavBar
@@ -157,7 +157,7 @@ const App = () => {
       />
       <HeroSection account={account} contract={contract} />
       <Footer />
-    </>
+    </div>
   );
 };
 

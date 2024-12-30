@@ -75,3 +75,6 @@ img,
 video {
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
+.App {
+  padding: 2rem;
+}
